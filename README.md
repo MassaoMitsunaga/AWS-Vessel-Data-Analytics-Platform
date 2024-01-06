@@ -21,7 +21,7 @@ This document outlines the architecture of a robust data pipeline on AWS. The pu
 - **Amazon Kinesis Data Streams**: Captures real-time data from Kafka for immediate processing and analysis.
 - **Amazon Kinesis Data Firehose**: Facilitates the direct and automated loading of streaming data into the S3 Raw Zone.
 - **AWS Lambda**: Fetches weather data from third-party APIs.
-- **AWS Glue**: Utilized for ingesting data from PostgreSQL into the AWS environment.
+- **AWS Data Migration Services**: Utilized for ingesting data from PostgreSQL into the AWS environment.
 
 ### Data Storage
 
@@ -65,9 +65,9 @@ This document outlines the architecture of a robust data pipeline on AWS. The pu
    - Lambda functions process and transform the API response, then write the data directly into the S3 Raw Zone, allowing near-real-time weather information to be associated with vessel positions.
 
 3. **PostgreSQL to S3**:
-   - Vessel performance data and static vessel information from PostgreSQL databases are ingested using AWS Glue.
-   - AWS Glue is scheduled to perform these tasks daily for performance data and weekly for static data, using the Delta format in the ETL process to efficiently manage updates.
-   - The transformed data is placed in the S3 Processed Zone, ready for analytics.
+   - Vessel performance data and static vessel information from PostgreSQL databases are ingested using AWS Data Migration Services.
+   - Tasks are scheduled to perform these tasks daily for performance data and weekly for static data, using CDC to efficiently manage updates.
+   - The transformed data is placed in the S3 Processed Zone, upserted in the delta format, ready for analytics.
 
 ### Orchestration and Cataloging
 
